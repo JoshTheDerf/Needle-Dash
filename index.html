@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Needle</title>
+  <link href="./lib/fontawesome/css/font-awesome.min.css" rel="stylesheet"/>
+  <link href="./styles/base.less" rel="stylesheet/less"/>
+  <link href="theme://" rel="stylesheet/less"/>
+  <script src="./lib/less.min.js"></script>
+  <script src="./lib/zepto.min.js"></script>
+  <script src="./lib/ractive.min.js"></script>
+  <script src="./scripts/main.js"></script>
+  <script src="./scripts/settings.js"></script>
+</head>
+<body>
+  <div id="contentWrapper">
+    <div id="searchWidget">
+      <select id="providerList" class="providerList" value="Auto" tabindex="-1">
+        <option value="Auto">Auto</option>
+        <option value="Linux-App-Descriptors">App</option>
+        <option value="Yahoo-Search">Web Search</option>
+        <option value="Open-URL">URL</option>
+      </select>
+      <input id="queryInput" type="text" placeholder="Type to search..." tabindex="1"/>
+      <div id="settingsButton" class="fa fa-bars button" tabindex="-1"></div>
+    </div>
+    <div id="resultWrapper">
+    </div>
+    <div id="settingsView" class="hidden">
+    </div>
+  </div>
+  <script type="text/html/ractive" id="resultTemplate">
+    {{#if !hasResults}}
+      <div class="statusMessage">No Results</div>
+    {{/if}}
+    {{#if results['Yahoo-Search']}}
+      <div class="providerGroup">
+        <h3 class="groupTitle">Yahoo Search</h3>
+        <div class="resultGroup">
+          {{#each results['Yahoo-Search']}}
+            <a href="javascript:;" class="result" on-click="execCommand('sensible-browser', url)">
+              <div class="title">{{title}}</div>
+              <div class="source">{{url}}</div>
+              <div class="description">{{preview}}</div>
+            </a>
+          {{/each}}
+        </div>
+      </div>
+    {{/if}}
+    {{#if results['Linux-App-Descriptors']}}
+      <div class="providerGroup">
+        <h3 class="groupTitle">Applications</h3>
+        <div class="resultGroup s128">
+        {{#each results['Linux-App-Descriptors']}}
+          <a href="javascript:;" class="result" on-click="execCommand(exec, null, true)" title="{{name}}">
+            <img src="icon://{{icon}}@64" class="image"/>
+            <div class="title" title="{{genericName}}">{{name}}</div>
+          </a>
+        {{/each}}
+        </div>
+      </div>
+    {{/if}}
+    {{#if results['Open-URL']}}
+      <div class="providerGroup">
+        <h3 class="groupTitle">Open URL</h3>
+        <div class="resultGroup">
+          {{#each results['Open-URL']}}
+            <a href="javascript:;" class="result" on-click="openBrowser(url)">
+              <div class="title">{{url}}</div>
+            </a>
+          {{/each}}
+        </div>
+      </div>
+    {{/if}}
+  </script>
+  <script type="text/html" id="settingsTemplate">
+    <div class="headerbar">
+      <div class="title">Needle Settings</div>
+      <div class="controls">
+        <div class="button warning" id="settingsQuitButton">Quit</div>
+        <div class="button warning" id="settingsResetButton">Reset</div>
+        <div class="button default" id="settingsSaveButton">Save</div>
+      </div>
+    </div>
+    <table>
+      <tr>
+        <th>Starter Options (Requires Restart)</th>
+        <th></th>
+      </tr>
+      <tr>
+        <td>Theme</td>
+        <td>
+          <select value="{{theme}}">
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Window Width</td>
+        <td><input type="number" value="{{width}}" min="100" tabindex="-1"/></td>
+      </tr>
+      <tr>
+        <td>Window Height</td>
+        <td><input type="number" value="{{height}}" min="100" tabindex="-1"/></td>
+      </tr>
+      <tr>
+        <td>Window Horizontal Position</td>
+        <td><input type="number" value="{{x}}" min="-1" tabindex="-1"/></td>
+      </tr>
+      <tr>
+        <td>Window Vertical Position</td>
+        <td><input type="number" value="{{y}}" min="-1" tabindex="-1"/></td>
+      </tr>
+      <tr>
+        <td>Disable GPU (Change if transparency is not working properly.)</td>
+        <td>
+          <select value="{{disableGPU}}">
+            <option value="true">Disable</option>
+            <option value="false">Enable</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+  </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+@background-color: #2F2F2F;
+@active-color: #00A3FF;
+@warning-color: #CB1919;
+@text-color: #EEE;
+@lightness-curve: 0;
+
+#contentWrapper {
+  background-color: @background-color;
+  color: @text-color;
+}
+
+*:focus {
+  outline-offset: 5px;
+  outline-width: thin;
+  outline-color: @active-color;
+  border: none;
+}
+
+#searchWidget {
+  .providerList {
+    background-color: transparent;
+    color: @text-color;
+
+    option {
+      background-color: lighten(@background-color, 10);
+    }
+  }
+
+  #queryInput {
+    background-color: lighten(@background-color, 10);
+    color: @text-color;
+    border-bottom: 1px solid transparent;
+
+    &:focus {
+      background-color: lighten(@background-color, 5);
+      padding-bottom: 8px;
+      border-bottom: 2px solid @active-color;
+    }
+  }
+}
+
+.providerGroup {
+  .groupTitle {
+    color: darken(@text-color, 20);
+    border-bottom: 1px solid lighten(@background-color, 5);
+  }
+
+  .resultGroup {
+    .result {
+      transition: all 200ms;
+      color: darken(@text-color, 15);
+      border-bottom: 2px solid transparent;
+
+      &:hover, &:focus {
+        background-color: rgba(255,255,255,0.05);
+        color: darken(@text-color, 5);
+      }
+
+      &:active {
+        background-color: rgba(255,255,255,0.03);
+        box-shadow: inset 0px 0px 3px 1px rgba(255,255,255,0.05);
+        color: @text-color;
+      }
+
+      .source {
+        color: darken(@text-color, 30);
+      }
+    }
+  }
+}
+
+#settingsView {
+  padding: 10px;
+  background-color: lighten(@background-color, 10);
+  color: darken(@text-color, 3);
+}
+
+.headerbar {
+  background-color: lighten(@background-color, 20);
+  border-bottom: 1px solid @background-color;
+  font-size: 15px;
+
+
+  .title {
+  }
+}
+
+.button {
+  transition: all 200ms;
+  background-color: transparent;
+  border: 1px solid transparent;
+
+  &:hover {
+    border: 1px solid rgba(@lightness-curve,@lightness-curve,@lightness-curve,0.1);
+    box-shadow: inset 0px 0px 3px 1px rgba(@lightness-curve,@lightness-curve,@lightness-curve,0.07);
+    background-color: rgba(@lightness-curve,@lightness-curve,@lightness-curve,0.2);
+  }
+
+  &:active {
+    background-color: @active-color;
+  }
+
+  &.warning {
+    &:hover {
+      background-color: @warning-color;
+    }
+
+    &:active {
+      background-color: darken(@warning-color, 10);
+    }
+  }
+}

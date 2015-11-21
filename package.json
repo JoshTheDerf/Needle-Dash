@@ -1,0 +1,17 @@
+{
+  "name": "needle-dash",
+  "main": "./needle.js",
+  "version": "0.1.0",
+  "author": "Joshua Bemenderfer",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^0.19.0",
+    "electron-positioner": "^1.1.0",
+    "expand-home-dir": "0.0.2",
+    "extend": "^3.0.0",
+    "ini-parser": "0.0.2",
+    "is-there": "^4.0.0",
+    "menubar": "^2.1.2",
+    "needle": "^0.10.0"
+  }
+}
